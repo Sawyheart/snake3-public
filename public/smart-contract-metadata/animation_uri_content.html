@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <style>
+      ::-webkit-scrollbar {
+        width: 0;
+        height: 0px;
+      }
+
+      * {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: black;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        height: 100vh;
+        margin: 0;
+
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAWJJREFUeJzt1EERAzEQBLFc9oiYP0ZXAmMfaiGYR9c855zfBzYz2xNWfbcHZFcB4AoAVwC4AsAVAK4AcAWAKwBcAeAKAFcAuALAFQCuAHAFgCsAXAHgCgBXALgCwBUArgBwBYArAFwB4AoAVwC4AsAVAK4AcAWAKwBcAeAKAFcAuALAFQCuAHAFgCsAXAHgCgBXALgCwBUArgBwBYArAFwB4AoAVwC4AsAVAK4AcAWAKwBcAeAKAFcAuALAFQCuAHDvzGxvWHXv3Z6wqgfAFQCuAHAFgCsAXAHgCgBXALgCwBUArgBwBYArAFwB4AoAVwC4AsAVAK4AcAWAKwBcAeAKAFcAuALAFQCuAHAFgCsAXAHgCgBXALgCwBUArgBwBYArAFwB4AoAVwC4AsAVAK4AcAWAKwBcAeAKAFcAuALAFQCuAHAFgCsAXAHgCgBXALgCwBUArgBwBYArAFwB4AoA9wfe8QVteGgOjwAAAABJRU5ErkJggg==");
+        background-size: 200px;
+        animation: background_anim infinite 5s linear;
+      }
+
+      @keyframes background_anim {
+        0% {background-position: left 0 top 0;}
+        100% {background-position: left 100px top 100px;}
+      }
+
+      .canvas_div {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        margin: 0 auto;
+        
+        border: 5px dashed #9999;
+        border-radius: 5px;
+
+        filter: drop-shadow(5px 5px 0 #0005);
+
+        transition: .25s ease;
+      }
+
+      .canvas_div:hover {
+        border: 5px dashed white;
+     }
+
+      .canvas {
+        border-radius: 5px;
+      }
+
+      .ui {
+        display: flex;
+        gap: 50px;
+      }
+
+      .button_container {
+        width: 4rem;
+        height: 4rem;
+        margin-top: 30px;
+        outline: 2px dashed #999;
+        border: none;
+        border-radius: 35px;
+        filter: drop-shadow(3px 2px 0 #000a);
+        transition: .25s ease;
+      }
+      .button_container:hover {
+        outline: 2px dashed white;
+        border-radius: 28px;
+      }
+      .button_container:active {
+        translate: 0 4px;
+      }
+
+      .button_on, .button_off {
+        cursor: pointer;
+        width:100%;
+        height:100%;
+        border:none;
+        background-color:#0000;
+        background-position:center;
+        background-repeat:no-repeat;
+        transition: .25s ease;
+      }
+      .button_off {
+        opacity: 0.5;
+      }
+
+      .info_panel, .info_panel_hide {
+        position: absolute;
+        translate: 0 -48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        width: 260px;
+        height: 140px;
+        padding: 20px;
+        outline: 4px solid #000c;
+        border-radius: 5px;
+        backdrop-filter: blur(2px);
+        box-shadow: 8px 8px 4px #0009;
+      }
+      .info_panel_hide {
+        pointer-events: none;
+        opacity: 0;
+      }
+      .info_row {
+        display: flex;
+        overflow: scroll;
+        white-space: nowrap;
+        padding: 2px 8px;
+        border-radius: 6px;
+        background-color: #bbb;
+        box-shadow: 2px 2px 1px #000a;
+        transition: .25s ease;
+      }
+      .info_row:hover {
+        translate: -8px;
+      }
+      .info_value {
+        padding: 0 8px;
+        margin-left: 4px;
+        border-radius: 6px;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="canvas_div">
+      <canvas id="game" class="canvas"></canvas>
+    </div>
+    <div class="ui">
+      <div class="button_container">
+        <button id="loop" class="button_on button_off" style="background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MiA1MiIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj4NCgk8cGF0aCBkPSJNNDcuMiAzMi42YzAgLjEgMCAuMS0uMS4yLS4zLjktLjUgMS44LS45IDIuNi0uNC45LS44IDEuOS0xLjMgMi43LTEgMS44LTIuMiAzLjQtMy42IDQuOC0xLjQgMS40LTMgMi43LTQuNyAzLjctMS43IDEtMy42IDEuOS01LjYgMi40LTIgLjYtNC4xLjgtNi4yLjhDMTIuMyA1MCAyIDM5LjcgMiAyNy4xUzEyLjMgNC4yIDI0LjkgNC4yYzQuMyAwIDguMyAxLjIgMTEuNyAzLjIgMCAwIDAgMCAwIDAgMS43IDEgMy4yIDIuMiA0LjUgMy41LjQuMy43LjYgMSAxIC44LjYgMS4zLjIgMS4zLS44VjMuNkM0My40IDIuOCA0NC4yIDIgNDUgMmgzLjJjLjkgMCAxLjYuOCAxLjcgMS42djE5LjZjMCAuOC0uNiAxLjQtMS40IDEuNEgyOC45Yy0uOSAwLTEuNS0uNi0xLjUtMS41di0zLjNjMC0uOS44LTEuNiAxLjYtMS42aDcuNWMuNiAwIDEuMi0uMiAxLjQtLjUtMi45LTQtNy42LTYuNi0xMy02LjYtOC45IDAtMTYgNy4yLTE2IDE2czcuMiAxNiAxNiAxNmM3IDAgMTIuOS00LjQgMTUuMS0xMC42IDAgMCAuMy0xLjQgMS40LTEuNCAxLjEgMCAzLjggMCA0LjYgMCAuNyAwIDEuMy41IDEuMyAxLjJDNDcuMiAzMi40IDQ3LjIgMzIuNSA0Ny4yIDMyLjZ6IiBmaWxsPSJ3aGl0ZSIgLz4NCjwvc3ZnPg==); background-size:40px;" onclick="loopToggle()"></button> 
+      </div>
+      <div class="button_container">
+        <button id="info" class="button_on button_off" style="background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMCAxMCIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj4NCjwhLS0gPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIC8+IC0tPg0KCTxwYXRoIGQ9Ik02LDkgSDUgVjQgSDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIC8+DQogIDxjaXJjbGUgY3g9IjQuNzUiIGN5PSIxLjUiIHI9IjEiIGZpbGw9IndoaXRlIiAvPg0KPC9zdmc+); background-size:50px;" onclick="infoToggle()"></button> 
+      </div>
+    </div>
+    <div id="info-panel" class="info_panel info_panel_hide">
+      <div class="info_row" style="margin-right: 80px;"><b>ID: <span class="info_value"></span></b></div>
+      <div class="info_row" style="margin-right: 8px;"><b>CREATOR: <a class="info_value" target="_blank"></a></b></div>
+      <div class="info_row" style="margin-right: 40px;"><b>DATE: <span class="info_value"></span></b></div>
+      <div class="info_row" style="margin-right: 16px;"><b>COLORS: <span class="info_value"></span></b></div>
+    </div>
+    <script type="text/javascript">
+      /** @type {HTMLCanvasElement} */
+      const loopButton = document.getElementById("loop")
+      const infoButton = document.getElementById("info")
+      const infoPanel = document.getElementById("info-panel")
+      const canvas = document.getElementById("game")
+      const canvasContainer = document.getElementById("container")
+      const context = canvas.getContext("2d")
+
+      const boardSize = Math.min(500, Math.min(window.innerWidth - 50, window.innerHeight - 50))
+      const totalUnitForSide = 50
+
+      canvas.width = boardSize - (boardSize % totalUnitForSide)
+      canvas.height = boardSize - (boardSize % totalUnitForSide)
+
+      const unitSize = canvas.width / totalUnitForSide
+
+      const autoGameData = [^]
+      const snakeInfo = ["^", "^", "^", "^"]
+
+      Array.from(infoPanel.children).forEach((e, i) => {
+        const info = snakeInfo[i]
+        if(i === 1) e.lastChild.lastChild.setAttribute("href", "https://mumbai.polygonscan.com/address/"+snakeInfo[i])
+        e.lastChild.lastChild.innerHTML = i === 1 ? info.substring(0, 6) + "..." + info.substring(37) : info
+      })
+
+      let stepIDX = 0
+      let keyStepJustChanged = false
+      
+      let snake = []
+      let direction = [0, 0]
+
+      let tickTimeout
+
+      let started = false
+      let gameOver = false
+
+      let loop = false
+      let info = false
+      
+      function loopToggle() {
+        loop = !loop
+        if(loop) loopButton.classList.remove("button_off")
+        else loopButton.classList.add("button_off")
+        if(gameOver) setTimeout(restart, 1000)
+      }
+
+      function infoToggle() {
+        info = !info
+        if(info) {
+          infoButton.classList.remove("button_off")
+          infoPanel.classList.remove("info_panel_hide")
+        }
+        else {
+          infoButton.classList.add("button_off")
+          infoPanel.classList.add("info_panel_hide")
+        } 
+      }
+
+      function startGame() {
+        setTimeout(() => {
+          if(started) return
+          started = true
+          context.fillStyle = autoGameData[0].color 
+          tick()
+        }, 1000)
+      }
+
+      function stopGame() {
+        gameOver = true
+        started = false
+        if(loop) setTimeout(restart, 1000) 
+      }
+
+      function restart() {
+        if(!loop) return
+
+        snake = []
+        direction = [0, 0]
+        stepIDX = 0
+        keyStepJustChanged = false
+        gameOver = false
+        
+        context.clearRect(0, 0, canvas.width, canvas.height)
+        background()
+        startGame()
+      }
+
+      function drawSnake() {
+        context.fillRect(snake[0].x * unitSize, snake[0].y * unitSize, unitSize, unitSize)
+      }
+
+      function moveSnake() {
+        const actualHead = snake.length === 0 ? {x: autoGameData[0].x, y: autoGameData[0].y} : snake[0]
+        const newHead = {x: actualHead.x + direction[0], y: actualHead.y + direction[1]}
+        
+        if(!gameOver) snake.unshift(newHead)
+
+        if(keyStepJustChanged) {
+          keyStepJustChanged = false
+          context.fillStyle = autoGameData[Math.max(0, stepIDX-1)].color 
+        }
+        if(newHead.x === autoGameData[stepIDX].x && newHead.y === autoGameData[stepIDX].y)
+          nextKeyStep(newHead)
+      }
+
+      function nextKeyStep(head) {
+        if(stepIDX === autoGameData.length - 1) {
+          context.fillStyle = autoGameData[stepIDX].color 
+          stopGame()
+          return
+        }
+
+        direction = [Math.sign(autoGameData[stepIDX+1].x - head.x), Math.sign(autoGameData[stepIDX+1].y - head.y)]
+
+        stepIDX += 1
+        keyStepJustChanged = true  
+      }
+
+      function autoGameLoop() {
+        moveSnake()
+        drawSnake()
+      }
+
+      function tick() {
+        if(gameOver) return
+
+        tickTimeout = setTimeout(() => {
+          autoGameLoop()
+          tick()
+        }, 15)
+      }
+
+      function background() {
+        for(let y = 0; y < totalUnitForSide/2; y++) {
+          for(let x = 0; x < totalUnitForSide/2; x++) { 
+            if(x % 2 !== y % 2) {
+              context.fillStyle = "#fff"
+              context.fillRect(x*(unitSize*2), y*(unitSize*2), unitSize*2, unitSize*2)
+            }
+            else {
+              context.fillStyle = "#eee"
+              context.fillRect(x*(unitSize*2), y*(unitSize*2), unitSize*2, unitSize*2)
+            }
+          }
+        }
+      }
+
+      background()
+      startGame()
+    </script>
+  </body>
+</html>

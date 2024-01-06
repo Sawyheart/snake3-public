@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 8">
+  <!-- <rect width="100" height="100" /> -->
+  <g transform="translate(0 -2)">
+    <path d="M1,8 H3 V6 H1 V4 H3 M4,8 V4 L6,8 V4 M7,8 V4 H9 V8 M9,6 H7 M12,4 L10.5,6 L12,8 M10,8 V4 M15,4 H13 V8 H15 M13.5,6 H14.5 M17,8 H19 V4 H17 M18.5,6 H17.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#aaa8" stroke-width="0.25" />
+    <path d="M1,8 H3 V6 H1 V4 H3 M4,8 V4 L6,8 V4 M7,8 V4 H9 V8 M9,6 H7 M12,4 L10.5,6 L12,8 M10,8 V4 M15,4 H13 V8 H15 M13.5,6 H14.5 M17,8 H19 V4 H17 M18.5,6 H17.5" stroke-linecap="round" stroke-linejoin="round" 
+      fill="none" stroke="white" stroke-dasharray="24" stroke-width="0.35"
+    >
+      <animate attributeName="stroke-dashoffset" repeatCount="indefinite" values="48;0" dur="4"/>
+    </path>
+    <circle r="0.25" cx="16" cy="6" fill="red">
+      <animate attributeName="fill" repeatCount="indefinite" values="white;red;yellow;cyan;purple;orange;green;white" dur="4"/>
+    </circle>
+  </g>
+
+  <!-- <path d="M0 8.75 h100" stroke="red"/> -->
+  <!-- <path d="M0 3.25 h100" stroke="red"/> -->
+
+</svg>

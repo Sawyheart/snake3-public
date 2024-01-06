@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+
+  <style>
+    #play {
+      animation: anim 5s infinite;
+    }
+
+    @keyframes anim {
+      0%, 100% {d: path("M8.3,5 L0.75,8.8 L.75,1.2 L.75,1.2 Z")} /* M.75,1.2 L8.3,5 L0.75,8.8 L0.75,5 Z */
+      50%, 90% {d: path("M3,-1 L3,20 L6.5,20 L6.5,-10 Z")} /* M3.25,-1 L3.25,12 L6.75,12 L6.75,-1 Z */
+    }
+  </style>
+  <rect width="10" height="10" fill="white"/>
+  <!-- <circle r="5" cx="5" cy="5" fill="rgb(39,39,42)" /> L8.3,5 L-0.5,9.4 L-0.5,.5-->
+
+
+  <!-- <path d="M3.25,-1 L3.25,12 L6.75,12 L6.75,-1 Z" fill="none" stroke="red" stroke-width="1.5" /> -->
+  <!-- <path d="M.75,1.2 L8.3,5 L0.75,8.8 L0.75,5 Z" fill="none" stroke="red" stroke-width="1.5"/> -->
+
+  <!-- <path id="play" fill="none" stroke="black" stroke-width="1.5" /> -->
+  <path d="M9.1,5 L1.55,8.8 L1.55,1.2 L1.55,1.2 Z" fill="none" stroke="red" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- <path d="M1.7,1.2 L8.3,1.2 L8.3,8.8 L1.7,8.8 Z" fill="none" stroke="green" stroke-width="1.5" /> -->
+  
+</svg>

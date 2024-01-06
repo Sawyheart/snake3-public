@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" shape-rendering="crispEdges">
+  <!-- <rect width="100%" height="100%" fill="#6662"/> -->
+  <path d="M0,250 h200 v100 h75 v-100 h100 v-50 h20 h20 v50 h300" stroke-dasharray="1000" stroke="white" fill="none" stroke-width="20" filter="drop-shadow(5px 5px 0 #000)">
+    <animate attributeName="stroke-dashoffset" repeatCount="indefinite" values="800;0" dur="2s" />
+    <animateTransform attributeName="transform" type="translate" repeatCount="indefinite"  from="0" to="-500" dur="2s" />
+  </path>
+</svg>
