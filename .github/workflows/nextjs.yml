@@ -24,6 +24,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  MUMBAI_PRIVATE_KEY: 9b1f908e513b1e675723ef35bd21de246edd253336cec2bacff063768c8c8ba7
+  THIRDWEB_API_SECRET_KEY: ThLmJZLDl0j8HRZ_v9I61fTTT497DagWn3y7rKrWN_sYZsXQoAExgzM5yzKAtwQjcNyMJLqCjYfkE9dEg8qcjw
+  
 jobs:
   # Build job
   build:
