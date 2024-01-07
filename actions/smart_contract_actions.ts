@@ -6,7 +6,7 @@ import { ThirdwebSDK } from "@thirdweb-dev/sdk"
 import { ThirdwebStorage } from "@thirdweb-dev/storage"
 import { BigNumber, ethers } from "ethers"
 import React from "react"
-import { CONTRACT_ADDRESS } from "@/lib/util"
+import { CONTRACT_ADDRESS, SNAKE_SVG_TEMPLATE } from "@/lib/util"
 
 type PathTagProps = {
   d: string,
@@ -198,7 +198,7 @@ const _minifySnakeData = (data: SnakeStepData[]) => {
 
 //Create the SVG file in order to upload it to Thirdweb IPFS Storage
 const _createSVG = (minifiedData: SnakeStepData[]): string =>  {
-  const templateSVGText: string = fs.readFileSync("./public/smart-contract-metadata/snake_image_template.svg", {encoding: "utf8"})
+  const templateSVGText: string = SNAKE_SVG_TEMPLATE//fs.readFileSync("./public/smart-contract-metadata/snake_image_template.svg", {encoding: "utf8"})
   const splittedSVGText: string[] = templateSVGText.split("^")
   const { finalString: pathTagsInString } = _createPathTags(minifiedData, 8, 50)
 
