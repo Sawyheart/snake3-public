@@ -14,5 +14,5 @@ export function generateStaticParams() {
 
 export default async function SnakeTicketPageGallery({ params: { ticketID } }: SnakeTicketProps) {
   const snakeData = await getSnakeData(+ticketID)
-  return <SnakeTicketPage params={{ ticketID }} />
+  return <SnakeTicketPage params={{ ticketID }} snakeData={snakeData} />
 }
