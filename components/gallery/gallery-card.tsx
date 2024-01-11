@@ -21,7 +21,7 @@ export default async function GalleryCard({ownerAddress, ticketID, ticketType, r
     >
       
       <Link href={{pathname: route+"/"+ticketID, query: {
-        snake_data: gallerySnakeData?.data.snakeDataString,
+        // snake_data: gallerySnakeData?.data.snakeDataString,
         creator: gallerySnakeData?.data.snakeInfo?.creatorAddress,
         owner: gallerySnakeData?.data.snakeInfo?.ownerAddress,
         date: gallerySnakeData?.data.snakeInfo?.timestamp,

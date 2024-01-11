@@ -11,7 +11,6 @@ type SearchResultDataType = {
 
 export default async function ExplorePage({ searchParams, }: {searchParams: { [key: string]: string | string[] | undefined }}) {  
   const searchResultData: SearchResultDataType = {tickets: [], message: ""}
-  console.log(searchParams)
   if(!searchParams.search_result) {
     const totalTickets = await getTotalSnakeTickets()
     searchResultData.tickets = Array.from(Array(totalTickets), (_v, i) => i+1)
@@ -34,7 +33,6 @@ export default async function ExplorePage({ searchParams, }: {searchParams: { [k
 
   const allGalleryCard = searchResultData.tickets.slice(0, 10).map((value, index) => <GalleryCard key={index} ticketID={value} ticketType="minted" route="/explore" />)
   
-  console.log(searchResultData, searchParams)
   return (
     <>
       <section className="px-10 py-8 mt-16 flex flex-wrap justify-center gap-10 default_transition">

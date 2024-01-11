@@ -26,23 +26,17 @@ export const uploadContent = async () => {
   const contentChunks: string[] = contentText.split("^")
   const contentChunksInBytes: Uint8Array[] = contentChunks.map((chunk: string) => ethers.utils.toUtf8Bytes(chunk))
 
-  console.log("changing animation uri content with:", contentChunks)
+  // console.log("changing animation uri content with:", contentChunks)
   const contract = await sdk.getContractFromAbi(CONTRACT_ADDRESS, Snake3.abi)
-  const data = await contract.call("uploadContent", [contentChunksInBytes])
-
-  console.log("SUCCESS!")
+  const reciep = await contract.call("uploadContent", [contentChunksInBytes])
 }
 
 export const addSnakeTicket = async (ticketOwner: string | undefined, snakeData: SnakeStepData[]) => {
-  console.log(ticketOwner, snakeData)
-  
   const { minifiedData, snakeColorsProperty } = _minifySnakeData(snakeData)
   const snakeGameSVGText = _createSVG(minifiedData)
 
   const uri = await storage.upload(snakeGameSVGText)
   const cleanURI = uri.replace(":/", "")
-
-  console.log(uri, cleanURI)
 
   const contract = await sdk.getContractFromAbi(CONTRACT_ADDRESS, Snake3.abi)
   const totalTickets = await contract.call("totalTickets")
@@ -60,26 +54,21 @@ export const addSnakeTicket = async (ticketOwner: string | undefined, snakeData:
     ethers.utils.toUtf8Bytes(snakeColorsProperty),
     ethers.utils.toUtf8Bytes(cleanURI)
   ])
-
-  console.log(data)
 }
 
 export const burnTicket = async (ticketID: number) => {
   const contract = await sdk.getContractFromAbi(CONTRACT_ADDRESS, Snake3.abi)
   const data = await contract.call("burnTicket", [ticketID])
-  console.log(data)
 }
 
 export const mintSnake = async (ticketID: number) => {
   const contract = await sdk.getContractFromAbi(CONTRACT_ADDRESS, Snake3.abi)
   const data = await contract.call("mintSnake", [ticketID])
-  console.log(data)
 }
 
 export const burnSnake = async (ticketID: number) => {
   const contract = await sdk.getContractFromAbi(CONTRACT_ADDRESS, Snake3.abi)
   const data = await contract.call("_burn", [ticketID])
-  console.log(data )
 }
 
 export const getTotalSnakeTickets = async () => {
@@ -150,7 +139,7 @@ export const getSnakePathTags = async (ticketID: number, mintedOnly: boolean = f
   const creatorAddress = snakeInfoData.creatorAddress
   const ownerAddress = snakeInfoData.ownerAddress
 
-  console.log(colors, timestamp)
+  // console.log(colors, timestamp)
 
   return {
     res: 200,
@@ -162,12 +151,10 @@ export const getSnakePathTags = async (ticketID: number, mintedOnly: boolean = f
   }
 }
 
-export const getSnakeImage = async (ticketID: number) => {
+export const getSnakeData = async (ticketID: number) => {
   const contract = await sdk.getContractFromAbi(CONTRACT_ADDRESS, Snake3.abi)
-  const data = await contract.call("snakeTickets", [ticketID])
-
-  const snakeImageURL = BASE_IMAGE_URI + Buffer.from(ethers.utils.arrayify(data.snakeImageURI)).toString()
-  console.log(snakeImageURL)
+  const data = await contract.call("getTicketSnakeData", [ticketID])
+  return data.length ? "[" + Buffer.from(ethers.utils.arrayify(data[0])).toString() + "]" : "[]"
 }
 
 

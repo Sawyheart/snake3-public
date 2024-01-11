@@ -1,6 +1,6 @@
 "use client"
 import { CONTRACT_ADDRESS, cn } from '@/lib/util'
-import { useContract } from '@thirdweb-dev/react'
+import { useAddress, useContract } from '@thirdweb-dev/react'
 import { ethers } from 'ethers'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { HTMLProps } from 'react'
@@ -15,12 +15,16 @@ type SmartContractButtonProps = (
   className?: HTMLProps<HTMLElement>["className"],
 }
 
+const OWNER_ADDRESS = "0x31389e8115AebcBC5Ae1d5CfDac45D1CDec652aF"
+
+
 export default function SmartContractButton({ smartContractFunc, funcDeclaration, newParams, redirect, children, className }: SmartContractButtonProps) {
   const router = useRouter() 
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   const contract = useContract(CONTRACT_ADDRESS)
+  const address = useAddress()
 
   const SCFuncExecuter = () => {
     const params = new URLSearchParams(searchParams)
@@ -32,7 +36,7 @@ export default function SmartContractButton({ smartContractFunc, funcDeclaration
         if(funcDeclaration) await contract.contract?.call(
           funcDeclaration.name,
           funcDeclaration.args,
-          funcDeclaration.value ? {value: ethers.utils.parseEther(funcDeclaration.value)} : undefined
+          funcDeclaration.value && address !== OWNER_ADDRESS ? {value: ethers.utils.parseEther(funcDeclaration.value)} : undefined
         )
         else await smartContractFunc()
       }

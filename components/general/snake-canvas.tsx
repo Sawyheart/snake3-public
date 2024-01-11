@@ -1,18 +1,14 @@
 "use client"
 import useAutoGame from '@/hooks/_general/useAutoGame'
 import { cn } from '@/lib/util'
-import { useSearchParams } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
 
-export default function SnakeCanvas({ ticketID, loop }: {ticketID: number, loop: boolean}) {
-  const params = useSearchParams()
-  
-  const [snakeData, setSnakeData] = useState<SnakeStepData[]>(() => {
-    const snakeDataString = params.get("snake_data")
-    if(!snakeDataString) return []
+export default function SnakeCanvas({ ticketID, snake_data, loop }: {ticketID: number, snake_data?: string, loop: boolean}) {
+  const snakeData = useMemo(() => {
+    if(!snake_data) return []
 
     try{
-      var snakeData: SnakeStepData[] = JSON.parse(snakeDataString)
+      var snakeData: SnakeStepData[] = JSON.parse(snake_data)
 
       snakeData.forEach(step => {
         if(Object.keys(step).length !== 3) throw new Error()
@@ -25,7 +21,8 @@ export default function SnakeCanvas({ ticketID, loop }: {ticketID: number, loop:
     }
 
     return snakeData
-  })
+  }, [])
+
   const { canvasRef } = useAutoGame(snakeData, 50, loop)
 
   return (

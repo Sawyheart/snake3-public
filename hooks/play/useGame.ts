@@ -91,7 +91,6 @@ const useGame = (initSnakeData: SnakeGameData) => {
     if(!actualHead) return
     actualHead.color = initSnakeData.startingStep.color
     snake = [ ...snake, ...[actualHead] ]
-    console.log("NES", initSnakeData.startingStep.color, actualHead, snake)
     snakeGameDataDispatch({type: ACTIONS.SET, data: { snake }})
   }, [initSnakeData.startingStep.color])
   
@@ -142,7 +141,6 @@ const useGame = (initSnakeData: SnakeGameData) => {
   }
 
   function checkForCollisions(head: SnakeStepData) {
-    console.log(snakeGameData.snake, head)
     //Snake collision
     if(snakeGameData.snake.some(({x, y, color}) => head.x === x && head.y === y && head.color === color)) return true
     

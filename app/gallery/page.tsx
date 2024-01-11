@@ -6,7 +6,6 @@ import { cn } from '@/lib/util'
 export default async function GalleryPage({ searchParams, }: {searchParams: { [key: string]: string | string[] | undefined }}) {
   const address: string = searchParams.address as string
   const ownedTickets = await getOwnedTicketsID(address/*"0x31389e8115AebcBC5Ae1d5CfDac45D1CDec652aF"*/)
-  console.log(ownedTickets, address, "SERVER")
 
   return(
     <section className="w-full px-10 pb-28 pt-48 flex flex-col items-stretch gap-10">

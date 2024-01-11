@@ -13,13 +13,14 @@ type SnakeTicketProps = {
   params: {
     ticketID: string,
   }
+  snakeData?: string
 }
 
 const ROTATE_VALUE = ["rotate-1", "-rotate-1", "rotate-2", "-rotate-2","rotate-3", "-rotate-3"]
 
 const SNAKE_INFOS = ["creator", "owner", "date", "colors"] as const
 
-export default function SnakeTicketPage({ params: { ticketID } }: SnakeTicketProps) {
+export default function SnakeTicketPage({ params: { ticketID }, snakeData }: SnakeTicketProps) {
   const [isLooping, setLoop] = useState(false)
   const [showInfo, setShowInfo] = useState(false)
   const params = useSearchParams()
@@ -37,7 +38,7 @@ export default function SnakeTicketPage({ params: { ticketID } }: SnakeTicketPro
 
           return (
             <section key={i} className={cn(
-              "bg-[#bbb] rounded-md px-2 py-[2px] shadow-[2px_2px_1px_#000a] hover:-translate-x-2 default_transition",
+              "bg-[#bbb] whitespace-nowrap [&::-webkit-scrollbar]:[width:0] [&::-webkit-scrollbar]:[height:0] overflow-x-scroll  rounded-md px-2 py-[2px] shadow-[2px_2px_1px_#000a] hover:-translate-x-2 default_transition",
               {
                 "mr-2": i === 0,
                 "mr-6": i === 1,
@@ -55,7 +56,7 @@ export default function SnakeTicketPage({ params: { ticketID } }: SnakeTicketPro
 
   return (
     <section className="w-full min-h-[100dvh] px-10 pb-28 pt-40 flex flex-col items-center justify-center gap-10">
-      <SnakeCanvasPage ticketID={+ticketID} loop={isLooping}></SnakeCanvasPage>
+      <SnakeCanvasPage ticketID={+ticketID} loop={isLooping} snake_data={snakeData}></SnakeCanvasPage>
       <div className="min-w-[min(400px,_100%)] flex justify-between items-center gap-8">
         <section id="replay-button" className="group round_button min-w-[64px] flex justify-center items-center" data-loop={isLooping ? "true" : ""} onClick={() => setLoop(!isLooping)}>
           <Image className={cn("default_transition", {"opacity-30": !isLooping})} src={"/./assets/loop_replay_button.svg"} alt="loop_button" width={40} height={40} />
@@ -70,7 +71,7 @@ export default function SnakeTicketPage({ params: { ticketID } }: SnakeTicketPro
               BURN
             </SmartContractButton>
           </section>
-          : <Link href={"https://testnets.opensea.io/collection/snake3-28"} target="_blank" className={cn("button px-4 py-2 sm_text_format")}>
+          : <Link href={"https://testnets.opensea.io/collection/snake3-29"} target="_blank" className={cn("button px-4 py-2 sm_text_format")}>
               OPEN IN OPENSEA
             </Link>
         }
@@ -84,7 +85,7 @@ export default function SnakeTicketPage({ params: { ticketID } }: SnakeTicketPro
         </section>
 
       </div>
-      { showInfo && <section className={cn("wide_card absolute flex flex-col justify-center gap-2 -translate-y-[52px]", ROTATE_VALUE[Math.floor(Math.random() * ROTATE_VALUE.length)])}>
+      { showInfo && <section className={cn("wide_card absolute flex flex-col justify-center gap-2 -translate-y-[52px]", /*ROTATE_VALUE[Math.floor(Math.random() * ROTATE_VALUE.length)]*/)}>
         <div className="absolute top-0 left-0 w-full h-full -z-10 backdrop-blur-[2px]" />
         {snakeInfos}
       </section>

@@ -6,8 +6,5 @@ export const changeCSSProperty = (propertyNames: string[], propertyValues: strin
 
 
 const svgPathResizer = ((d: string, oldViewBox: [number, number], newViewBox: [number, number]) => {
-  console.log(d, oldViewBox, newViewBox)
 
 })("s", [1, 1], [1, 1])
-
-console.log("ASd")
