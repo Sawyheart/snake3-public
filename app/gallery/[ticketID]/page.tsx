@@ -9,7 +9,7 @@ type SnakeTicketProps = {
 }
 
 export function generateStaticParams() {
-  return [{ticketID: "1"}, {ticketID: "2"}, {ticketID: "3"}, {ticketID: "4"}, {ticketID: "5"}, {ticketID: "6"}, {ticketID: "7"}, {ticketID: "8"}, {ticketID: "9"}, {ticketID: "10"},  ]
+  return Array.from({length: 100}, (_, i) => { return {ticketID: (i+1)+""}})
 }
 
 export default async function SnakeTicketPageGallery({ params: { ticketID } }: SnakeTicketProps) {
