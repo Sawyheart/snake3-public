@@ -102,10 +102,11 @@ export const getSnakePathTags = async (ticketID: number, mintedOnly: boolean = f
 
   if(mintedOnly) {
     const data = await contract.call("snakeTickets", [ticketID])
-    if(data.ticketStatus.toNumber() !== 2) return {
-      res: 404,
-      data: {pathElements: undefined, snakeDataString: ""}
-    }
+    console.log(data.ticketStatus)
+    // if(data.ticketStatus.toNumber() !== 2) return {
+    //   res: 404,
+    //   data: {pathElements: undefined, snakeDataString: ""}
+    // }
   }
   const data = await contract.call("getTicketSnakeData", [ticketID])
   const snakeDataString = data.length ? "[" + Buffer.from(ethers.utils.arrayify(data[0])).toString() + "]" : "[]"
