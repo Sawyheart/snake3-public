@@ -71,7 +71,7 @@ export default function SnakeTicketPage({ params: { ticketID }, snakeData }: Sna
               BURN
             </SmartContractButton>
           </section>
-          : <Link href={"https://testnets.opensea.io/collection/snake3-29"} target="_blank" className={cn("button px-4 py-2 sm_text_format")}>
+          : <Link href={"https://testnets.opensea.io/collection/snake3-30"} target="_blank" className={cn("button px-4 py-2 sm_text_format")}>
               OPEN IN OPENSEA
             </Link>
         }

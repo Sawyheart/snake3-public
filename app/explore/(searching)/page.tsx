@@ -31,7 +31,7 @@ export default async function ExplorePage({ searchParams, }: {searchParams: { [k
     searchResultData.message = "No Snakes found!"
   }
 
-  const allGalleryCard = searchResultData.tickets.slice(0, 10).map((value, index) => <GalleryCard key={index} ticketID={value} ticketType="minted" route="/explore" />)
+  const allGalleryCard = searchResultData.tickets.map((value, index) => <GalleryCard key={index} ticketID={value} ticketType="minted" route="/explore" />)
   
   return (
     <>

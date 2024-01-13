@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge"
 import { clsx, ClassValue } from "clsx"
 
-export const CONTRACT_ADDRESS =  "0x61FffEa7dbbD368E0AdCa4755c39B2fc858A4d2d"  //0xae8f2089bF4e826fD6398161BDE3fc366B9E3d85 - //0x110AC8937C5E5dA4EFc0d79eCBe61726A5c4f446
+export const CONTRACT_ADDRESS =  "0xF361083181eBB7Ee82c019364070ec5Cdc024AF3"  //0xae8f2089bF4e826fD6398161BDE3fc366B9E3d85 - //0x110AC8937C5E5dA4EFc0d79eCBe61726A5c4f446
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 

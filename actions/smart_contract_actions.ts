@@ -54,6 +54,8 @@ export const addSnakeTicket = async (ticketOwner: string | undefined, snakeData:
     ethers.utils.toUtf8Bytes(snakeColorsProperty),
     ethers.utils.toUtf8Bytes(cleanURI)
   ])
+
+  return 200
 }
 
 export const burnTicket = async (ticketID: number) => {
@@ -100,7 +102,7 @@ export const getSnakePathTags = async (ticketID: number, mintedOnly: boolean = f
 
   if(mintedOnly) {
     const data = await contract.call("snakeTickets", [ticketID])
-    if(!data.expired) return {
+    if(data.ticketStatus.toNumber() !== 2) return {
       res: 404,
       data: {pathElements: undefined, snakeDataString: ""}
     }
